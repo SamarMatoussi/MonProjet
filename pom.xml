@@ -11,7 +11,7 @@
 	<groupId>tn</groupId>
 	<artifactId>Backend</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
-	<name>bank</name>
+	<name>ATLAS LABS</name>
 	<description>My Application</description>
 	<properties>
 		<java.version>17</java.version>
