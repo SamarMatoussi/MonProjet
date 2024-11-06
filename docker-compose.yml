@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.33
+    restart: unless-stopped
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: samar123*/
+      MYSQL_DATABASE: databaseBank
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    depends_on:
+      - mysql
+    image: samarmatoussi/backend
+    restart: on-failure
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_APPLICATION_JSON: |
+        {
+          "spring.datasource.url": "jdbc:mysql://mysql_db:3306/databaseBank?createDatabaseIfNotExist=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+          "spring.datasource.username": "root",
+          "spring.datasource.password": "samar123*/",
+          "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQLDialect",
+          "spring.jpa.hibernate.ddl-auto": "update"
+        }
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql_data:
